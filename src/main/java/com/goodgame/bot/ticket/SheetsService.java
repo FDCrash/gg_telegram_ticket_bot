@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class SheetsService {
     private final BotConfig botConfig;
 
     private Sheets getSheetsService() throws IOException, GeneralSecurityException {
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(botConfig.getCredentials().getBytes(StandardCharsets.UTF_8))) {
+        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64.getDecoder().decode(botConfig.getCredentials()))) {
             GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream)
                     .createScoped(Collections.singletonList("https://www.googleapis.com/auth/spreadsheets"));
             return new Sheets.Builder(
