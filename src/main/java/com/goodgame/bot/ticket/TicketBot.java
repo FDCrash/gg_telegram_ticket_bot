@@ -1,6 +1,7 @@
 package com.goodgame.bot.ticket;
 
 import com.goodgame.bot.ticket.config.BotConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class TicketBot extends TelegramLongPollingBot {
     private final SheetsService sheetsService;
@@ -88,6 +90,7 @@ public class TicketBot extends TelegramLongPollingBot {
                     );
                     try {
                         sheetsService.appendToSheet(row);
+                        log.info("Sheet append participant name {}", state.getFirstName());
                     } catch (Exception e) {
                         e.printStackTrace();
                         sendMessage(chatId, "Ошибка при сохранении данных. Попробуйте снова.");
