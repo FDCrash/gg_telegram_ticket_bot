@@ -1,12 +1,13 @@
 FROM bellsoft/liberica-openjdk-alpine-musl:23 AS builder
 WORKDIR /app
 COPY pom.xml ./
-RUN apk add --no-cache maven && mvn dependency:go-offline -B
 COPY src ./src
-RUN mvn clean package -DskipTests && rm -rf /root/.m2
+RUN apk add --no-cache maven && mvn clean package -DskipTests
 
 FROM bellsoft/liberica-openjdk-alpine-musl:23
 WORKDIR /app
 COPY --from=builder /app/target/telegram-gg-ticket-bot-1.0-SNAPSHOT.jar /gg_telegram_ticket_bot.jar
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/gg_telegram_ticket_bot.jar"]
+ENTRYPOINT ["/entrypoint.sh"]
