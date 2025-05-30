@@ -11,5 +11,5 @@ public class BotConfig {
     private String token;
     private String sheetId;
     private String sheetName;
-    private String credentialsPath;
+    private String credentials;
 }

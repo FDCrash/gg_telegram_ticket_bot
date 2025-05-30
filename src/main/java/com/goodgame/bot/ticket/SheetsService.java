@@ -10,8 +10,9 @@ import com.google.auth.oauth2.GoogleCredentials;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +23,7 @@ public class SheetsService {
     private final BotConfig botConfig;
 
     private Sheets getSheetsService() throws IOException, GeneralSecurityException {
-        try (InputStream inputStream = SheetsService.class.getResourceAsStream(botConfig.getCredentialsPath())) {
+        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(botConfig.getCredentials().getBytes(StandardCharsets.UTF_8))) {
             GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream)
                     .createScoped(Collections.singletonList("https://www.googleapis.com/auth/spreadsheets"));
             return new Sheets.Builder(
