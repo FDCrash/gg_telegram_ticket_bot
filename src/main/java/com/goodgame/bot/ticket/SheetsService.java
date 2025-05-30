@@ -37,7 +37,7 @@ public class SheetsService {
         Sheets sheetsService = getSheetsService();
         ValueRange body = new ValueRange().setValues(Collections.singletonList(values));
         sheetsService.spreadsheets().values()
-                .append(botConfig.getSheetId(), "Лист1", body)
+                .append(botConfig.getSheetId(), botConfig.getSheetName(), body)
                 .setValueInputOption("RAW")
                 .execute();
     }

@@ -1,5 +1,5 @@
 bot:
-  token: 7695093813:AAGmv9PWlvdHCeqqw9infgP5Ahs12oC7mcw
-  name: GG ticket bot
-  sheet-id: 1Nztl3OuSkJuKZr0PNE19XEeefpIh-oGaGUcAeDTzOrU
-  credentials-path: /config/google.json
+  token: ${TELEGRAM_TOKEN:7695093813:AAGmv9PWlvdHCeqqw9infgP5Ahs12oC7mcw}
+  sheet-id: ${GOOGLE_SHEET_ID:1Nztl3OuSkJuKZr0PNE19XEeefpIh-oGaGUcAeDTzOrU}
+  sheet-name: ${GOOGLE_SHEET_NAME:Лист1}
+  credentialsPath: ${GOOGLE_CREDENTIALS:/config/google.json}

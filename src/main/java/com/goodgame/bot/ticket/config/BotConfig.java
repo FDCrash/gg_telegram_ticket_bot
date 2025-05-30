@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class BotConfig {
     private String token;
-    private String name;
     private String sheetId;
+    private String sheetName;
     private String credentialsPath;
 }
